@@ -12,6 +12,8 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
   // 4-> Is the user status Active
 
   //console.log(req.headers.authorization);
+
+  //? 1-> Check if the token exists
   const token = req.headers.authorization;
   if (!token) {
     res.status(401).json({
@@ -21,10 +23,12 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
     });
   }
 
+  //? 2-> Verify Token
   const decode = jwt.verify(token as string, config.jwt_secret) as JwtPayload;
 
   //console.log(decode);
 
+  //? 3-> Check if the user exists
   const user = await pool.query(
     `
     SELECT * FROM  users WHERE email=$1
@@ -39,6 +43,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
       //data: result,
     });
   }
+  //? 4-> Is the user status Active
   if (!user.rows[0].is_active) {
     res.status(403).json({
       success: false,
@@ -46,6 +51,9 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
       //data: result,
     });
   }
+
+  req.user = decode;
+  // console.log(req);
 
   next();
 };
