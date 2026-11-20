@@ -14,7 +14,7 @@ if (!jwtSecret) {
 const config = {
   port: process.env.PORT,
   connection_string: process.env.DATABASE_URL as string,
-  jwt_secret: jwtSecret,
+  jwt_secret: jwtSecret as string,
 };
 
 export default config;
