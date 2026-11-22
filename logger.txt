@@ -180,3 +180,9 @@ Method: GET | URL : /api/v1/auth/refresh-token | Time: 1795322064599
 Method: GET | URL : /api/v1/auth/refresh-token | Time: 1795322221519
 
 Method: POST | URL : /api/v1/auth/refresh-token | Time: 1795322619668
+
+Method: POST | URL : /api/v1/users | Time: 1795337547333
+
+Method: POST | URL : /api/v1/users | Time: 1795337627183
+
+Method: POST | URL : /api/v1/auth/login | Time: 1795337676527
