@@ -4,7 +4,9 @@ const logger = (req: Request, res: Response, next: NextFunction) => {
   // console.log("Method-> URL-> Time:", req.method, req.url, Date.now());
   const log = `\nMethod: ${req.method} | URL : ${req.url} | Time: ${Date.now()}\n`;
   fs.appendFile("logger.txt", log, (err) => {
-    console.log(err);
+    if (err) {
+      console.error("Failed to write request log:", err);
+    }
   });
 
   next();

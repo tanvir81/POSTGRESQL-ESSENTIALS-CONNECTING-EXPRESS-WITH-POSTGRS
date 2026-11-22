@@ -11,7 +11,21 @@ const app: Application = express();
 
 import fs from "fs";
 import logger from "./middleware/logger";
+import globalErrorHandeler from "./middleware/globalErrorhandeler";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    //"http://localhost:5000",
+    //"http://localhost:8000",
+  ],
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.text());
 app.use(express.urlencoded({ extended: true }));
@@ -32,5 +46,8 @@ app.get("/", (req: Request, res: Response) => {
     author: "Tanvir",
   });
 });
+
+// ? Globel Error Hendeler
+app.use(globalErrorHandeler);
 
 export default app;
